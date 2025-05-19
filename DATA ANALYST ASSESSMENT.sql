@@ -1,0 +1,961 @@
+CREATE TABLE plans_plan (
+  id char(32) NOT NULL,
+  name varchar(50) NOT NULL,
+  description varchar(255) NOT NULL,
+  amount int NOT NULL,
+  start_date date DEFAULT NULL,
+  last_charge_date date DEFAULT NULL,
+  next_charge_date date DEFAULT NULL,
+  created_on datetime NOT NULL,
+  frequency_id int NOT NULL,
+  owner_id char(32) NOT NULL,
+  status_id int NOT NULL,
+  interest_rate double NOT NULL,
+  withdrawal_date date DEFAULT NULL,
+  default_plan tinyint(1) NOT NULL,
+  plan_type_id int NOT NULL,
+  goal double NOT NULL,
+  locked tinyint(1) NOT NULL,
+  next_returns_date date NOT NULL,
+  last_returns_date date NOT NULL,
+  cowry_amount int NOT NULL,
+  debit_card char(32) DEFAULT NULL,
+  is_archived tinyint(1) NOT NULL,
+  is_deleted tinyint(1) NOT NULL,
+  is_goal_achieved tinyint(1) NOT NULL,
+  is_a_goal tinyint(1) NOT NULL,
+  is_interest_free tinyint(1) NOT NULL,
+  plan_group_id char(32) DEFAULT NULL,
+  is_deleted_from_group tinyint(1) NOT NULL,
+  is_a_fund tinyint(1) NOT NULL,
+  purchased_fund_id char(32) DEFAULT NULL,
+  is_a_wallet tinyint(1) NOT NULL,
+  currency_is_dollars tinyint(1) NOT NULL,
+  is_auto_rollover tinyint(1) NOT NULL,
+  is_vendor_plan tinyint(1) NOT NULL,
+  plan_source varchar(100) NOT NULL,
+  is_donation_plan tinyint(1) NOT NULL,
+  donation_description longtext NOT NULL,
+  donation_expiry_date date DEFAULT NULL,
+  donation_link varchar(255) DEFAULT NULL,
+  link_code varchar(255) DEFAULT NULL,
+  charge_payment_fee tinyint(1) NOT NULL,
+  donation_is_approved tinyint(1) NOT NULL,
+  is_emergency_plan tinyint(1) NOT NULL,
+  is_personal_challenge tinyint(1) NOT NULL,
+  currency_id int NOT NULL,
+  is_a_usd_index tinyint(1) NOT NULL,
+  usd_index_id char(32) DEFAULT NULL,
+  open_savings_plan tinyint(1) NOT NULL,
+  new_cycle tinyint(1) NOT NULL,
+  recurrence longtext,
+  is_bloom_note tinyint(1) NOT NULL,
+  is_managed_portfolio tinyint(1) NOT NULL,
+  portfolio_holdings_id char(32) DEFAULT NULL,
+  is_fixed_investment tinyint(1) NOT NULL,
+  is_regular_savings tinyint(1) NOT NULL,
+  preset_id int DEFAULT NULL,
+  PRIMARY KEY (id),
+  KEY plans_plan_9399d341 (frequency_id),
+  KEY plans_plan_5e7b1936 (owner_id),
+  KEY plans_plan_dc91ed4b (status_id),
+  KEY plans_plan_a008eb24 (plan_type_id),
+  KEY plans_plan_plan_group_id_bc264c36 (plan_group_id),
+  KEY plans_plan_purchased_fund_id_a6ba198f (purchased_fund_id),
+  KEY plans_plan_usd_index_id_b93858dd_fk_funds_usdindex_id (usd_index_id),
+  KEY plans_plan_currency_id_bb34dd0f_fk_plans_currency_id (currency_id),
+  KEY plans_plan_portfolio_holdings_i_cdb8ef74_fk_managed_p (portfolio_holdings_id),
+  KEY plans_plan_preset_id_7bf30202_fk_plans_planpreset_id (preset_id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `users_customuser` (
+  `id` varchar(32) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL DEFAULT 0,
+  `email` varchar(60) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `phone_number` varchar(128) DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `is_staff` tinyint(1) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `date_joined` datetime NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `username` varchar(25) DEFAULT NULL,
+  `created_on` datetime NOT NULL,
+  `gender_id` int DEFAULT NULL,
+  `invite_code` varchar(100) DEFAULT NULL,
+  `avatar_firebase_reference` varchar(255) DEFAULT NULL,
+  `avatar_local_uri` varchar(255) DEFAULT NULL,
+  `avatar_url` varchar(255) DEFAULT NULL,
+  `risk_apetite` int NOT NULL DEFAULT 0,
+  `current_latitude` varchar(100) DEFAULT NULL,
+  `current_longitude` varchar(100) DEFAULT NULL,
+  `postal_address` varchar(255) DEFAULT NULL,
+  `pin` varchar(128) DEFAULT NULL,
+  `ambassador_profile_id` varchar(32) DEFAULT NULL,
+  `is_ambassador` tinyint(1) NOT NULL DEFAULT 0,
+  `account_source` varchar(100) NOT NULL,
+  `is_vendor_account` tinyint(1) NOT NULL DEFAULT 0,
+  `is_business_account` tinyint(1) NOT NULL DEFAULT 0,
+  `is_account_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `vendor_code` varchar(100) NOT NULL,
+  `is_halal_account` tinyint(1) NOT NULL DEFAULT 0,
+  `address_city` varchar(100) DEFAULT NULL,
+  `address_country` varchar(40) DEFAULT NULL,
+  `address_state` varchar(40) DEFAULT NULL,
+  `address_street` varchar(255) DEFAULT NULL,
+  `monthly_expense` double NOT NULL DEFAULT 0,
+  `monthly_salary` double NOT NULL DEFAULT 0,
+  `is_account_disabled` tinyint(1) NOT NULL DEFAULT 0,
+  `authy_id` varchar(128) DEFAULT NULL,
+  `fraud_score` int NOT NULL DEFAULT 0,
+  `account_campaign` varchar(150) DEFAULT NULL,
+  `account_medium` varchar(100) DEFAULT NULL,
+  `last_password_change` datetime(6) DEFAULT NULL,
+  `last_pin_change` datetime(6) DEFAULT NULL,
+  `is_private` tinyint(1) NOT NULL DEFAULT 0,
+  `disabled_at` datetime(6) DEFAULT NULL,
+  `is_disabled_by_owner` tinyint(1) NOT NULL DEFAULT 0,
+  `is_account_deleted_by_owner` tinyint(1) NOT NULL DEFAULT 0,
+  `proposed_deletion_date` datetime(6) DEFAULT NULL,
+  `reason_for_deletion` varchar(255) DEFAULT NULL,
+  `enabled_at` datetime(6) DEFAULT NULL,
+  `signup_device` varchar(100) DEFAULT NULL,
+  `proposed_enablement_date` datetime(6) DEFAULT NULL,
+  `tier_id` int DEFAULT NULL,
+
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_email` (`email`),
+  UNIQUE KEY `unique_ambassador_profile_id` (`ambassador_profile_id`),
+  KEY `fk_gender` (`gender_id`),
+  KEY `fk_tier` (`tier_id`),
+  CONSTRAINT `users_customuser_tier_id_b1df8120_fk_users_tier_id`
+    FOREIGN KEY (`tier_id`) REFERENCES `users_tier` (`id`)
+    ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `users_tier` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `tier_name` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+select * from savings_savingsaccount;
+select * from plans_plan;
+select * from users_customuser;
+select * from withdrawals_withdrawal;
+CREATE TABLE `withdrawals_withdrawal` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `amount` DECIMAL(15,2) NOT NULL,
+  `amount_withdrawn` DECIMAL(15,2) NOT NULL,
+  `transaction_reference` VARCHAR(50) NOT NULL,
+  `transaction_date` DATETIME NOT NULL,
+  `new_balance` DECIMAL(15,2) NOT NULL,
+  `bank_id` INT DEFAULT NULL,
+  `owner_id` CHAR(32) NOT NULL,
+  `plan_id` CHAR(32) NOT NULL,
+  `transaction_channel_id` INT NOT NULL,
+  `transaction_status_id` INT NOT NULL,
+  `transaction_type_id` INT NOT NULL,
+  `fee_in_kobo` DECIMAL(15,2) NOT NULL,
+  `description` VARCHAR(255) NOT NULL,
+  `gateway` VARCHAR(255) DEFAULT NULL,
+  `gateway_response` VARCHAR(255) DEFAULT NULL,
+  `session_id` VARCHAR(50) DEFAULT NULL,
+  `currency` VARCHAR(3) NOT NULL,
+  `fee_in_cents` DECIMAL(15,2) NOT NULL,
+  `payment_id` VARCHAR(50) DEFAULT NULL,
+  `created_on` DATETIME(6) NOT NULL,
+  `updated_on` DATETIME(6) NOT NULL,
+  `withdrawal_intent_id` INT DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  
+  KEY `idx_bank_id` (`bank_id`),
+  KEY `idx_owner_id` (`owner_id`),
+  KEY `idx_plan_id` (`plan_id`),
+  KEY `idx_transaction_channel_id` (`transaction_channel_id`),
+  KEY `idx_transaction_status_id` (`transaction_status_id`),
+  KEY `idx_transaction_type_id` (`transaction_type_id`),
+  KEY `idx_withdrawal_intent_id` (`withdrawal_intent_id`),
+
+  CONSTRAINT `fk_withdrawal_intent_id` FOREIGN KEY (`withdrawal_intent_id`) 
+    REFERENCES `withdrawals_withdrawalintent` (`id`)
+
+  -- Add other foreign key constraints below if the referenced tables exist
+  -- Example:
+  -- CONSTRAINT `fk_bank_id` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1433 DEFAULT CHARSET=latin1;
+CREATE TABLE `withdrawals_withdrawalintent` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  -- other columns...
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `withdrawals_withdrawal` 
+VALUES (2, 1500000, 0, 'W56184', '2016-09-03 16:40:18', 40018.0821917808, 1, '0257625a02344b239b41e1cbe60ef080', '671e6e5caf0f463b80123c839264de8c', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` 
+VALUES (3, 1300000, 0, 'W56739', '2016-09-03 16:42:25', 40018.0821917808, 1, '0257625a02344b239b41e1cbe60ef080', '671e6e5caf0f463b80123c839264de8c', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` 
+VALUES (4, 10000, 10000, 'W61100', '2016-12-11 10:09:20', 32967590.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 2, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` 
+VALUES (5, 12000, 12000, 'W72359', '2016-12-11 10:36:51', 32955590.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 2, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (1, 10000, 10000, 'W52366', '2016-08-31 21:23:08', 4.38356164379911, 1, '0257625a02344b239b41e1cbe60ef080', '671e6e5caf0f463b80123c839264de8c', 1, 2, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (2, 1500000, 0, 'W56184', '2016-09-03 16:40:18', 40018.0821917808, 1, '0257625a02344b239b41e1cbe60ef080', '671e6e5caf0f463b80123c839264de8c', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (3, 1300000, 0, 'W56739', '2016-09-03 16:42:25', 40018.0821917808, 1, '0257625a02344b239b41e1cbe60ef080', '671e6e5caf0f463b80123c839264de8c', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (4, 10000, 10000, 'W61100', '2016-12-11 10:09:20', 32967590.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 2, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (5, 12000, 12000, 'W72359', '2016-12-11 10:36:51', 32955590.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 2, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (6, 1500000, 0, 'W83657', '2016-12-12 15:11:14', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (7, 1500000, 0, 'W83816', '2016-12-12 15:11:54', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (8, 1500000, 0, 'W85480', '2016-12-12 15:13:25', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (17, 1500000, 0, 'W95114', '2016-12-12 15:19:02', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (18, 1500000, 0, 'W95910', '2016-12-12 15:19:34', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (19, 1500000, 0, 'W96546', '2016-12-12 15:20:01', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (20, 1500000, 0, 'W97236', '2016-12-12 15:20:27', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (21, 1500000, 0, 'W97876', '2016-12-12 15:20:51', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (22, 1500000, 0, 'W98562', '2016-12-12 15:21:17', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (23, 1500000, 0, 'W99318', '2016-12-12 15:21:44', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (24, 1500000, 0, 'W99968', '2016-12-12 15:22:10', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (25, 1500000, 0, 'W100633', '2016-12-12 15:22:33', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (26, 1500000, 0, 'W101237', '2016-12-12 15:22:57', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (27, 1500000, 0, 'W101838', '2016-12-12 15:23:24', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (28, 1500000, 0, 'W102435', '2016-12-12 15:23:48', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (29, 1500000, 0, 'W103046', '2016-12-12 15:24:11', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (30, 1500000, 0, 'W103635', '2016-12-12 15:24:35', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (31, 1500000, 0, 'W104255', '2016-12-12 15:24:59', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (32, 1500000, 0, 'W104864', '2016-12-12 15:25:25', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (33, 1500000, 0, 'W105460', '2016-12-12 15:25:48', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (34, 1500000, 0, 'W106064', '2016-12-12 15:26:14', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (35, 1500000, 0, 'W106663', '2016-12-12 15:26:38', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (36, 1500000, 0, 'W107262', '2016-12-12 15:27:01', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (37, 1500000, 0, 'W107862', '2016-12-12 15:27:25', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (38, 1500000, 0, 'W108469', '2016-12-12 15:27:50', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (39, 1500000, 0, 'W109065', '2016-12-12 15:28:13', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (40, 1500000, 0, 'W109670', '2016-12-12 15:28:38', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (41, 1500000, 0, 'W110270', '2016-12-12 15:29:01', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (42, 1500000, 0, 'W110867', '2016-12-12 15:29:25', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (43, 1500000, 0, 'W111468', '2016-12-12 15:29:51', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (44, 1500000, 0, 'W112070', '2016-12-12 15:30:16', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (45, 1500000, 0, 'W112665', '2016-12-12 15:30:40', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (46, 1500000, 0, 'W113260', '2016-12-12 15:31:05', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (47, 1500000, 0, 'W113859', '2016-12-12 15:31:28', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (48, 1500000, 0, 'W114464', '2016-12-12 15:31:52', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (49, 1500000, 0, 'W115060', '2016-12-12 15:32:16', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (50, 1500000, 0, 'W115660', '2016-12-12 15:32:41', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (51, 1500000, 0, 'W116255', '2016-12-12 15:33:05', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (52, 1500000, 0, 'W116856', '2016-12-12 15:33:30', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (53, 1500000, 0, 'W117459', '2016-12-12 15:33:54', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (54, 1500000, 0, 'W118062', '2016-12-12 15:34:19', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (55, 1500000, 0, 'W118667', '2016-12-12 15:34:43', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (56, 1500000, 0, 'W119264', '2016-12-12 15:35:07', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (57, 1500000, 0, 'W119869', '2016-12-12 15:35:32', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (58, 1500000, 0, 'W120476', '2016-12-12 15:35:56', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (59, 1500000, 0, 'W121083', '2016-12-12 15:36:21', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (60, 1500000, 0, 'W121692', '2016-12-12 15:36:46', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (61, 1500000, 0, 'W122301', '2016-12-12 15:37:10', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (62, 1500000, 0, 'W122912', '2016-12-12 15:37:34', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (63, 1500000, 0, 'W123523', '2016-12-12 15:37:59', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (64, 1500000, 0, 'W124134', '2016-12-12 15:38:23', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (65, 1500000, 0, 'W124745', '2016-12-12 15:38:48', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (66, 1500000, 0, 'W125356', '2016-12-12 15:39:12', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (67, 1500000, 0, 'W125967', '2016-12-12 15:39:37', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (68, 1500000, 0, 'W126578', '2016-12-12 15:40:01', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (69, 1500000, 0, 'W127189', '2016-12-12 15:40:26', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (70, 1500000, 0, 'W127800', '2016-12-12 15:40:50', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (71, 1500000, 0, 'W128411', '2016-12-12 15:41:15', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (72, 1500000, 0, 'W129022', '2016-12-12 15:41:39', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (73, 1500000, 0, 'W129633', '2016-12-12 15:42:04', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (74, 1500000, 0, 'W130244', '2016-12-12 15:42:28', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (75, 1500000, 0, 'W130855', '2016-12-12 15:42:53', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (76, 1500000, 0, 'W131466', '2016-12-12 15:43:17', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (77, 1500000, 0, 'W132077', '2016-12-12 15:43:42', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (78, 1500000, 0, 'W132688', '2016-12-12 15:44:06', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES (78, 1500000, 0, 'W132688', '2016-12-12 15:44:06', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (79, 1500000, 0, 'W133299', '2016-12-12 15:44:31', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (80, 1500000, 0, 'W133910', '2016-12-12 15:44:55', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (81, 1500000, 0, 'W134521', '2016-12-12 15:45:20', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (82, 1500000, 0, 'W135132', '2016-12-12 15:45:44', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (83, 1500000, 0, 'W135743', '2016-12-12 15:46:09', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (84, 1500000, 0, 'W136354', '2016-12-12 15:46:33', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (85, 1500000, 0, 'W136965', '2016-12-12 15:46:58', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (86, 1500000, 0, 'W137576', '2016-12-12 15:47:22', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (87, 1500000, 0, 'W138187', '2016-12-12 15:47:47', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (88, 1500000, 0, 'W138798', '2016-12-12 15:48:11', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (89, 1500000, 0, 'W139409', '2016-12-12 15:48:36', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (90, 1500000, 0, 'W140020', '2016-12-12 15:49:00', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (91, 1500000, 0, 'W140631', '2016-12-12 15:49:24', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (92, 1500000, 0, 'W141242', '2016-12-12 15:49:49', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (93, 1500000, 0, 'W141853', '2016-12-12 15:50:13', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (94, 1500000, 0, 'W142464', '2016-12-12 15:50:38', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (95, 1500000, 0, 'W143075', '2016-12-12 15:51:02', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (96, 1500000, 0, 'W143686', '2016-12-12 15:51:27', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (97, 1500000, 0, 'W144297', '2016-12-12 15:51:51', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (98, 1500000, 0, 'W144908', '2016-12-12 15:52:16', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (99, 1500000, 0, 'W145519', '2016-12-12 15:52:40', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (100, 1500000, 0, 'W146130', '2016-12-12 15:53:05', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (101, 1500000, 0, 'W146741', '2016-12-12 15:53:29', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (102, 1500000, 0, 'W147352', '2016-12-12 15:53:54', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (103, 1500000, 0, 'W147963', '2016-12-12 15:54:18', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (104, 1500000, 0, 'W148574', '2016-12-12 15:54:43', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (105, 1500000, 0, 'W149185', '2016-12-12 15:55:07', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (106, 1500000, 0, 'W149796', '2016-12-12 15:55:32', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (107, 1500000, 0, 'W150407', '2016-12-12 15:55:57', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (108, 1500000, 0, 'W151018', '2016-12-12 15:56:22', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (109, 1500000, 0, 'W151629', '2016-12-12 15:56:46', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (110, 1500000, 0, 'W152240', '2016-12-12 15:57:11', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (111, 1500000, 0, 'W152851', '2016-12-12 15:57:35', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (112, 1500000, 0, 'W153462', '2016-12-12 15:58:00', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (113, 1500000, 0, 'W154073', '2016-12-12 15:58:25', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (114, 1500000, 0, 'W154684', '2016-12-12 15:58:50', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (115, 1500000, 0, 'W155295', '2016-12-12 15:59:14', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (116, 1500000, 0, 'W155906', '2016-12-12 15:59:39', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (117, 1500000, 0, 'W156517', '2016-12-12 16:00:03', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (118, 1500000, 0, 'W157128', '2016-12-12 16:00:28', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (119, 1500000, 0, 'W157739', '2016-12-12 16:00:53', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (120, 1500000, 0, 'W158350', '2016-12-12 16:01:17', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (121, 1500000, 0, 'W158961', '2016-12-12 16:01:41', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (122, 1500000, 0, 'W159572', '2016-12-12 16:02:06', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (123, 1500000, 0, 'W160183', '2016-12-12 16:02:30', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (124, 1500000, 0, 'W160794', '2016-12-12 16:02:55', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (125, 1500000, 0, 'W161405', '2016-12-12 16:03:20', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (126, 1500000, 0, 'W162016', '2016-12-12 16:03:45', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (127, 1500000, 0, 'W162627', '2016-12-12 16:04:09', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (128, 1500000, 0, 'W163238', '2016-12-12 16:04:34', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (129, 1500000, 0, 'W163849', '2016-12-12 16:04:58', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (130, 1500000, 0, 'W164460', '2016-12-12 16:05:23', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (131, 1500000, 0, 'W165071', '2016-12-12 16:05:47', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (132, 1500000, 0, 'W165682', '2016-12-12 16:06:12', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (133, 1500000, 0, 'W166293', '2016-12-12 16:06:37', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (134, 1500000, 0, 'W166904', '2016-12-12 16:07:02', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (135, 1500000, 0, 'W167515', '2016-12-12 16:07:26', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (136, 1500000, 0, 'W168126', '2016-12-12 16:07:51', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (137, 1500000, 0, 'W168737', '2016-12-12 16:08:15', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (138, 1500000, 0, 'W169348', '2016-12-12 16:08:40', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (139, 1500000, 0, 'W169959', '2016-12-12 16:09:05', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (140, 1500000, 0, 'W170570', '2016-12-12 16:09:29', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (141, 1500000, 0, 'W171181', '2016-12-12 16:09:54', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (142, 1500000, 0, 'W171792', '2016-12-12 16:10:18', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (143, 1500000, 0, 'W172403', '2016-12-12 16:10:43', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (144, 1500000, 0, 'W173014', '2016-12-12 16:11:07', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (145, 1500000, 0, 'W173625', '2016-12-12 16:11:32', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (146, 1500000, 0, 'W174236', '2016-12-12 16:11:56', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (147, 1500000, 0, 'W174847', '2016-12-12 16:12:21', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (148, 1500000, 0, 'W175458', '2016-12-12 16:12:45', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES (149, 1500000, 0, 'W176069', '2016-12-12 16:13:10', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO withdrawals_withdrawal VALUES (150, 1500000, 0, 'W176680', '2016-12-12 16:13:34', 32954790.6641956, 10, '0257625a02344b239b41e1cbe60ef080', '7f960e5b3743434882ee8ddcedb9aecb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-13 16:21:57.025419', '2023-06-13 16:21:57.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(151, 500000, 0, 'W176681', '2016-12-13 11:24:01', 33454790.6641956, 10, 'abc7625a02344b239b41e1cbe60ef081', '8f960e5b3743434882ee8ddcedb9aedb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-14 10:10:10.025419', '2023-06-14 10:10:10.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(152, 750000, 0, 'W176682', '2016-12-14 09:45:12', 32754790.6641956, 10, 'def7625a02344b239b41e1cbe60ef082', '9f960e5b3743434882ee8ddcedb9aecd', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-15 14:15:15.025419', '2023-06-15 14:15:15.195922', NULL);
+select * from withdrawals_withdrawal;
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(153, 1200000, 0, 'W176683', '2016-12-15 14:00:00', 32054790.6641956, 10, 'ghi7625a02344b239b41e1cbe60ef083', 'af960e5b3743434882ee8ddcedb9aeca', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-16 09:09:09.025419', '2023-06-16 09:09:09.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(156, 420000, 0, 'W176686', '2016-12-18 16:45:33', 30554790.6641956, 10, 'pqr7625a02344b239b41e1cbe60ef086', 'df960e5b3743434882ee8ddcedb9aec9', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-19 12:34:56.025419', '2023-06-19 12:34:56.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(157, 800000, 0, 'W176687', '2016-12-19 10:20:10', 29754790.6641956, 10, 'stu7625a02344b239b41e1cbe60ef087', 'ef960e5b3743434882ee8ddcedb9aec7', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-20 11:11:11.025419', '2023-06-20 11:11:11.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(158, 1000000, 0, 'W176688', '2016-12-20 09:55:55', 28754790.6641956, 10, 'vwx7625a02344b239b41e1cbe60ef088', 'ff960e5b3743434882ee8ddcedb9aec6', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-21 10:10:10.025419', '2023-06-21 10:10:10.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(159, 600000, 0, 'W176689', '2016-12-21 08:44:44', 28154790.6641956, 10, 'yza7625a02344b239b41e1cbe60ef089', '0f960e5b3743434882ee8ddcedb9aec5', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-22 09:09:09.025419', '2023-06-22 09:09:09.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(160, 1100000, 0, 'W176690', '2016-12-22 14:30:00', 27054790.6641956, 10, 'bcd7625a02344b239b41e1cbe60ef090', '1f960e5b3743434882ee8ddcedb9aec4', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-23 08:08:08.025419', '2023-06-23 08:08:08.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(156, 420000, 0, 'W176686', '2016-12-18 16:45:33', 30554790.6641956, 10, 'pqr7625a02344b239b41e1cbe60ef086', 'df960e5b3743434882ee8ddcedb9aec9', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-19 12:34:56.025419', '2023-06-19 12:34:56.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(157, 800000, 0, 'W176687', '2016-12-19 10:20:10', 29754790.6641956, 10, 'stu7625a02344b239b41e1cbe60ef087', 'ef960e5b3743434882ee8ddcedb9aec7', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-20 11:11:11.025419', '2023-06-20 11:11:11.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(158, 1000000, 0, 'W176688', '2016-12-20 09:55:55', 28754790.6641956, 10, 'vwx7625a02344b239b41e1cbe60ef088', 'ff960e5b3743434882ee8ddcedb9aec6', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-21 10:10:10.025419', '2023-06-21 10:10:10.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(159, 600000, 0, 'W176689', '2016-12-21 08:44:44', 28154790.6641956, 10, 'yza7625a02344b239b41e1cbe60ef089', '0f960e5b3743434882ee8ddcedb9aec5', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-22 09:09:09.025419', '2023-06-22 09:09:09.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(160, 1100000, 0, 'W176690', '2016-12-22 14:30:00', 27054790.6641956, 10, 'bcd7625a02344b239b41e1cbe60ef090', '1f960e5b3743434882ee8ddcedb9aec4', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-23 08:08:08.025419', '2023-06-23 08:08:08.195922', NULL);
+
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(161, 950000, 0, 'W176691', '2016-12-23 13:20:30', 26104790.6641956, 10, 'cde7625a02344b239b41e1cbe60ef091', '2f960e5b3743434882ee8ddcedb9aec3', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-24 07:07:07.025419', '2023-06-24 07:07:07.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(162, 780000, 0, 'W176692', '2016-12-24 12:10:15', 25324790.6641956, 10, 'def7625a02344b239b41e1cbe60ef092', '3f960e5b3743434882ee8ddcedb9aec2', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-25 06:06:06.025419', '2023-06-25 06:06:06.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(163, 1250000, 0, 'W176693', '2016-12-25 11:00:00', 24074790.6641956, 10, 'efg7625a02344b239b41e1cbe60ef093', '4f960e5b3743434882ee8ddcedb9aec1', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-26 05:05:05.025419', '2023-06-26 05:05:05.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(164, 880000, 0, 'W176694', '2016-12-26 10:30:30', 23194790.6641956, 10, 'fgh7625a02344b239b41e1cbe60ef094', '5f960e5b3743434882ee8ddcedb9aec0', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-27 04:04:04.025419', '2023-06-27 04:04:04.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(165, 720000, 0, 'W176695', '2016-12-27 09:15:45', 22474790.6641956, 10, 'ghi7625a02344b239b41e1cbe60ef095', '6f960e5b3743434882ee8ddcedb9aebf', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-28 03:03:03.025419', '2023-06-28 03:03:03.195922', NULL);
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(166, 1500000, 0, 'W176696', '2016-12-28 08:45:30', 20974790.6641956, 10, 'hij7625a02344b239b41e1cbe60ef096', '7f960e5b3743434882ee8ddcedb9aebe', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-29 02:02:02.025419', '2023-06-29 02:02:02.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(167, 1000000, 0, 'W176697', '2016-12-29 07:30:00', 19974790.6641956, 10, 'ijk7625a02344b239b41e1cbe60ef097', '8f960e5b3743434882ee8ddcedb9aebd', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-06-30 01:01:01.025419', '2023-06-30 01:01:01.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(168, 600000, 0, 'W176698', '2016-12-30 06:10:10', 19374790.6641956, 10, 'jkl7625a02344b239b41e1cbe60ef098', '9f960e5b3743434882ee8ddcedb9aebc', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-01 00:00:00.025419', '2023-07-01 00:00:00.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(169, 950000, 0, 'W176699', '2016-12-31 05:55:55', 18424790.6641956, 10, 'klm7625a02344b239b41e1cbe60ef099', 'af960e5b3743434882ee8ddcedb9aebb', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-02 10:10:10.025419', '2023-07-02 10:10:10.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(170, 700000, 0, 'W176700', '2017-01-01 05:05:05', 17724790.6641956, 10, 'lmn7625a02344b239b41e1cbe60ef100', 'bf960e5b3743434882ee8ddcedb9aeba', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-03 11:11:11.025419', '2023-07-03 11:11:11.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(171, 850000, 0, 'W176701', '2017-01-02 08:30:45', 16874790.6641956, 10, 'mno7625a02344b239b41e1cbe60ef101', 'cf960e5b3743434882ee8ddcedb9aeb9', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-04 09:45:12.025419', '2023-07-04 09:45:12.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(172, 1200000, 0, 'W176702', '2017-01-03 09:20:00', 15674790.6641956, 10, 'nop7625a02344b239b41e1cbe60ef102', 'df960e5b3743434882ee8ddcedb9aeb8', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-05 10:10:10.025419', '2023-07-05 10:10:10.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(173, 950000, 0, 'W176703', '2017-01-04 10:10:10', 14724790.6641956, 10, 'opq7625a02344b239b41e1cbe60ef103', 'ef960e5b3743434882ee8ddcedb9aeb7', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-06 11:11:11.025419', '2023-07-06 11:11:11.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(174, 500000, 0, 'W176704', '2017-01-05 11:30:30', 14224790.6641956, 10, 'pqr7625a02344b239b41e1cbe60ef104', 'ff960e5b3743434882ee8ddcedb9aeb6', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-07 12:00:00.025419', '2023-07-07 12:00:00.195922', NULL);
+
+INSERT INTO `withdrawals_withdrawal` VALUES 
+(175, 1100000, 0, 'W176705', '2017-01-06 12:45:45', 13124790.6641956, 10, 'qrs7625a02344b239b41e1cbe60ef105', '0f960e5b3743434882ee8ddcedb9aeb5', 1, 1, 4, 0, '', NULL, NULL, NULL, 'NGN', 0, NULL, '2023-07-08 13:13:13.025419', '2023-07-08 13:13:13.195922', NULL);
+
+
+UNLOCK TABLES;
+
+SELECT 
+    u.id AS owner_id,
+    CONCAT(u.first_name, ' ', u.last_name) AS name,
+    COUNT(DISTINCT s.id) AS savings_count,
+    COUNT(DISTINCT p.id) AS investment_count,
+    COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0) AS total_deposits
+FROM users_customuser u
+LEFT JOIN savings_savingsaccount s ON u.id = s.owner_id AND s.status = 'funded'
+LEFT JOIN plans_plan p ON u.id = p.owner_id AND p.status_id = 'funded'
+GROUP BY u.id, u.first_name, u.last_name
+HAVING COUNT(DISTINCT s.id) > 0 AND COUNT(DISTINCT p.id) > 0
+ORDER BY total_deposits DESC
+LIMIT 1000;
+
+select * from plans_plan;
+select * from savings_savingsaccount;
+select * from users_customuser;
+SELECT DISTINCT plan_type_id FROM plans_plan;
+SELECT plan_type_id, name, description 
+FROM plans_plan 
+WHERE plan_type_id IS NOT NULL 
+LIMIT 10;
+
+SELECT 
+    u.id AS owner_id, 
+    CONCAT(u.first_name, ' ', u.last_name) AS name, 
+    COUNT(DISTINCT s.id) AS savings_count, 
+    COUNT(DISTINCT p.id) AS investment_count, 
+    COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0) AS total_deposits 
+FROM users_customuser u 
+LEFT JOIN savings_savingsaccount s 
+    ON u.id = s.owner_id AND s.transaction_status = 'funded' 
+LEFT JOIN plans_plan p 
+    ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2 
+GROUP BY u.id, u.first_name, u.last_name 
+HAVING savings_count > 0 AND investment_count > 0 
+ORDER BY total_deposits DESC 
+LIMIT 1000;
+
+
+SELECT 
+    u.id AS owner_id, 
+    CONCAT(u.first_name, ' ', u.last_name) AS name, 
+    COUNT(DISTINCT s.id) AS savings_count, 
+    COUNT(DISTINCT p.id) AS investment_count, 
+    COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0) AS total_deposits 
+FROM users_customuser u 
+LEFT JOIN savings_savingsaccount s ON u.id = s.owner_id AND s.transaction_status = 'funded' 
+LEFT JOIN plans_plan p ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2 
+GROUP BY u.id, u.first_name, u.last_name
+LIMIT 10;
+
+SELECT 
+    u.id AS owner_id, 
+    CONCAT(u.first_name, ' ', u.last_name) AS name, 
+    COUNT(DISTINCT p.id) AS investment_count
+FROM users_customuser u 
+LEFT JOIN plans_plan p ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2
+GROUP BY u.id, u.first_name, u.last_name
+HAVING investment_count > 0
+LIMIT 10;
+
+
+SELECT 
+    u.id AS owner_id, 
+    CONCAT(u.first_name, ' ', u.last_name) AS name, 
+    COUNT(DISTINCT s.id) AS savings_count, 
+    COUNT(DISTINCT p.id) AS investment_count, 
+    COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0) AS total_deposits 
+FROM users_customuser u 
+LEFT JOIN savings_savingsaccount s ON u.id = s.owner_id AND s.transaction_status = 'funded' 
+LEFT JOIN plans_plan p ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2 
+GROUP BY u.id, u.first_name, u.last_name
+ORDER BY total_deposits DESC
+LIMIT 10;
+
+
+SELECT 
+    u.id AS owner_id,
+    CONCAT(u.first_name, ' ', u.last_name) AS name,
+    COUNT(DISTINCT s.id) AS savings_count,
+    COUNT(DISTINCT p.id) AS investment_count,
+    ROUND(COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0), 2) AS total_deposits
+FROM users_customuser u
+LEFT JOIN savings_savingsaccount s 
+    ON u.id = s.owner_id AND s.transaction_status = 'funded'
+LEFT JOIN plans_plan p 
+    ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2
+GROUP BY u.id, u.first_name, u.last_name
+HAVING savings_count > 0 AND investment_count > 0
+ORDER BY total_deposits DESC
+LIMIT 1000;
+
+SELECT u.id, COUNT(s.id)
+FROM users_customuser u
+LEFT JOIN savings_savingsaccount s 
+  ON u.id = s.owner_id AND s.transaction_status = 'funded'
+GROUP BY u.id
+HAVING COUNT(s.id) > 0;
+
+SELECT u.id, COUNT(p.id)
+FROM users_customuser u
+LEFT JOIN plans_plan p 
+  ON u.id = p.owner_id AND p.status_id = 'funded' AND p.plan_type_id = 2
+GROUP BY u.id
+HAVING COUNT(p.id) > 0;
+
+SELECT id FROM users_customuser WHERE id IN (
+    SELECT DISTINCT owner_id FROM savings_savingsaccount
+);
+
+
+-- For Savings Accounts
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status = 'funded'  -- active funded accounts
+GROUP BY s.id, s.owner_id
+HAVING inactivity_days > 365
+
+UNION ALL
+
+-- For Investment Plans
+SELECT 
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = 'funded'  -- active funded investment plans
+GROUP BY p.id, p.owner_id
+HAVING inactivity_days > 365
+
+ORDER BY inactivity_days DESC;
+
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status = 'funded'
+GROUP BY s.id, s.owner_id
+HAVING inactivity_days > 365
+
+UNION ALL
+SELECT 
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = 'funded'
+GROUP BY p.id, p.owner_id
+HAVING inactivity_days > 365
+
+ORDER BY inactivity_days DESC;
+
+SELECT owner_id, MAX(transaction_date) AS last_transaction_date
+FROM savings_savingsaccount
+WHERE transaction_status = 'funded'
+GROUP BY owner_id
+ORDER BY last_transaction_date DESC
+LIMIT 10;
+
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status = 'funded'
+GROUP BY s.id, s.owner_id
+ORDER BY inactivity_days DESC
+LIMIT 10;
+
+SELECT COUNT(*) FROM savings_savingsaccount;
+SELECT COUNT(*) FROM plans_plan;
+
+SELECT COUNT(*) FROM savings_savingsaccount WHERE transaction_status = 'funded';
+SELECT COUNT(*) FROM plans_plan WHERE status_id = 'funded';
+
+
+SELECT id, owner_id, transaction_date FROM savings_savingsaccount ORDER BY transaction_date DESC LIMIT 5;
+SELECT id, owner_id, last_charge_date FROM plans_plan ORDER BY last_charge_date DESC LIMIT 5;
+
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+GROUP BY s.id, s.owner_id
+HAVING inactivity_days > 0
+LIMIT 10;
+
+
+-- Savings inactivity
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status = 'funded'  -- or your active status condition
+GROUP BY s.id, s.owner_id
+HAVING inactivity_days > 365
+
+UNION ALL
+
+-- Investment inactivity
+SELECT
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = 'funded'  -- or your active status condition for investments
+GROUP BY p.id, p.owner_id
+HAVING inactivity_days > 365
+
+ORDER BY inactivity_days DESC;
+
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status = 'funded'
+GROUP BY s.id, s.owner_id
+ORDER BY inactivity_days DESC
+LIMIT 10;
+
+SELECT
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = 'funded'
+GROUP BY p.id, p.owner_id
+ORDER BY inactivity_days DESC
+LIMIT 10;
+SELECT DISTINCT transaction_status FROM savings_savingsaccount;
+SELECT DISTINCT status_id FROM plans_plan;
+
+SELECT 
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = '1'  -- assuming '1' is active/funded
+GROUP BY p.id, p.owner_id
+HAVING inactivity_days > 365;
+
+SELECT 
+    s.id AS plan_id,
+    s.owner_id,
+    'Savings' AS type,
+    MAX(s.transaction_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(s.transaction_date)) AS inactivity_days
+FROM savings_savingsaccount s
+WHERE s.transaction_status IN ('success', 'successful', 'monnify_success')
+GROUP BY s.id, s.owner_id
+HAVING inactivity_days > 365
+
+UNION ALL
+
+SELECT 
+    p.id AS plan_id,
+    p.owner_id,
+    'Investment' AS type,
+    MAX(p.last_charge_date) AS last_transaction_date,
+    DATEDIFF(CURRENT_DATE, MAX(p.last_charge_date)) AS inactivity_days
+FROM plans_plan p
+WHERE p.status_id = '1'
+GROUP BY p.id, p.owner_id
+HAVING inactivity_days > 365;
+
+SELECT
+    u.id AS owner_id,
+    CONCAT(u.first_name, ' ', u.last_name) AS name,
+    COUNT(DISTINCT s.id) AS savings_count,
+    COUNT(DISTINCT p.id) AS investment_count,
+    COALESCE(SUM(s.amount), 0) + COALESCE(SUM(p.amount), 0) AS total_deposits
+FROM users_customuser u
+JOIN savings_savingsaccount s
+    ON u.id = s.owner_id
+    AND s.transaction_status = 'funded'
+JOIN plans_plan p
+    ON u.id = p.owner_id
+    AND p.status_id = 1  
+    AND p.plan_type_id = 2 
+GROUP BY u.id, u.first_name, u.last_name
+HAVING savings_count > 0 AND investment_count > 0
+ORDER BY total_deposits DESC
+LIMIT 1000;
+
+WITH transactions_summary AS (
+    SELECT 
+        u.id AS customer_id,
+        CONCAT(u.first_name, ' ', u.last_name) AS name,
+        COUNT(s.id) AS total_transactions,
+        TIMESTAMPDIFF(MONTH, MIN(s.transaction_date), MAX(s.transaction_date)) + 1 AS tenure_months
+    FROM users_customuser u
+    LEFT JOIN savings_savingsaccount s ON u.id = s.owner_id
+    GROUP BY u.id, u.first_name, u.last_name
+),
+frequency_calc AS (
+    SELECT 
+        customer_id,
+        name,
+        total_transactions,
+        tenure_months,
+        CASE 
+            WHEN tenure_months = 0 THEN total_transactions
+            ELSE total_transactions / tenure_months
+        END AS avg_transactions_per_month
+    FROM transactions_summary
+),
+frequency_category AS (
+    SELECT 
+        CASE 
+            WHEN avg_transactions_per_month >= 10 THEN 'High Frequency'
+            WHEN avg_transactions_per_month BETWEEN 3 AND 9 THEN 'Medium Frequency'
+            ELSE 'Low Frequency'
+        END AS frequency_category,
+        customer_id,
+        avg_transactions_per_month
+    FROM frequency_calc
+)
+SELECT 
+    frequency_category,
+    COUNT(customer_id) AS customer_count,
+    ROUND(AVG(avg_transactions_per_month), 1) AS avg_transactions_per_month
+FROM frequency_category
+GROUP BY frequency_category
+ORDER BY 
+    CASE frequency_category
+        WHEN 'High Frequency' THEN 1
+        WHEN 'Medium Frequency' THEN 2
+        WHEN 'Low Frequency' THEN 3
+    END;
+    
+    
+    
+    WITH transaction_summary AS (
+    SELECT 
+        u.id AS customer_id,
+        CONCAT(u.first_name, ' ', u.last_name) AS name,
+        TIMESTAMPDIFF(MONTH, u.signup_date, CURRENT_DATE) AS tenure_months,
+        COUNT(s.id) AS total_transactions,
+        COALESCE(SUM(s.confirmed_amount), 0) AS total_inflow_kobo
+    FROM users_customuser u
+    LEFT JOIN savings_savingsaccount s 
+        ON u.id = s.owner_id
+        AND s.transaction_status = 'funded'  -- assuming only funded transactions count
+    GROUP BY u.id, u.first_name, u.last_name, u.signup_date
+)
+SELECT
+    customer_id,
+    name,
+    tenure_months,
+    total_transactions,
+    ROUND(
+      (total_transactions / NULLIF(tenure_months, 0)) * 12 * (total_inflow_kobo * 0.001) * 0.001,
+      2
+    ) AS estimated_clv
+FROM transaction_summary
+WHERE tenure_months > 0
+ORDER BY estimated_clv DESC;
+
